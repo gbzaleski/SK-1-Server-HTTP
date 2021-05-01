@@ -1,0 +1,4 @@
+/redirect	127.0.0.1	2567
+/ccc/ccc.txt	1.1.1.1	1000
+/ddd/ddd.txt	1.1.1.1	2000
+/aaa/aaa.txt	1.1.1.1	300
