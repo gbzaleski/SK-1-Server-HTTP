@@ -5,9 +5,9 @@ Simple C/C++ TCP server for parsing and analysing queries and responding to them
 Zadanie polega na napisaniu prostego serwera protokołu HTTP, z wąskim zakresem obsługiwanego wycinka specyfikacji protokołu HTTP/1.1 oraz specyficznym zachowaniem w przypadku niedostępności zasobu żądanego przez klienta.
 
 Program serwera będzie uruchamiany następująco:
-
-serwer <nazwa-katalogu-z-plikami> <plik-z-serwerami-skorelowanymi> [<numer-portu-serwera>]
-
+```
+./serwer <nazwa-katalogu-z-plikami> <plik-z-serwerami-skorelowanymi> [<numer-portu-serwera>]
+```
 Parametr z nazwą katalogu jest parametrem obowiązkowym i może być podany jako ścieżka bezwzględna lub względna. W przypadku ścieżki względnej serwer próbuje odnaleźć wskazany katalog w bieżącym katalogu roboczym.
 
 Parametr wskazujący na listę serwerów skorelowanych jest parametrem obowiązkowym i jego zastosowanie zostanie wyjaśnione w dalszej części treści zadania (Skorelowane serwery HTTP).
@@ -20,7 +20,7 @@ Serwer po ustanowieniu połączenia z klientem oczekuje na żądanie klienta. Se
 Format komunikacji
 
 Wszystkie komunikaty wymieniane pomiędzy klientem a serwerem powinny mieć postać:
-
+```
 HTTP-message   = start-line
 
                       *( header-field CRLF )
@@ -28,7 +28,7 @@ HTTP-message   = start-line
                       CRLF
 
                       [ message-body ]
-
+```
 Taką samą, powyższą postać HTTP-message, powinny przyjmować wszystkie komunikaty wysyłane przez serwer do klienta jak również komunikaty klienta wysyłane do serwera (więcej o formacie wiadomości można przeczytać w rozdziale “3. Message format” w oficjalnej dokumentacji dla protokołu HTTP, pod adresem: https://www.rfc-editor.org/rfc/inline-errata/rfc7230.html).
 
 Jeśli serwer otrzyma żądanie niezgodne z powyższą specyfikacją, to powinien odpowiedzieć błędem numer 400. Szczegóły konstruowania odpowiedzi serwera opisane zostały w dalszej części treści zadania.
@@ -66,7 +66,7 @@ header-field   = field-name ":" OWS field-value OWS
 
 gdzie:
 
-    ields-name - jest nazwą nagłówka, nieczułą na wielkość liter. W dalszej części zostaną wymienione nagłówki obsługiwane przez naszą implementację serwera.
+    fields-name - jest nazwą nagłówka, nieczułą na wielkość liter. W dalszej części zostaną wymienione nagłówki obsługiwane przez naszą implementację serwera.
     ":" - oznacza literalnie znak dwukropka.
     OWS - oznacza dowolną liczbę znaków spacji (w szczególności także brak znaku spacji).
     field-value - jest wartością nagłówka zdefiniowaną adekwatnie dla każdego z dozwolonych nagłówków protokołu HTTP. W dalszej części treści zostaną opisane także oczekiwane wartości i znaczenie nagłówków.
