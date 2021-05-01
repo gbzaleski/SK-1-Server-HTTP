@@ -35,9 +35,9 @@ Jeśli serwer otrzyma żądanie niezgodne z powyższą specyfikacją, to powinie
 Pierwsza linia komunikatu - start-line
 
 Ponieważ implementujemy server, to spośród wysłanych do nas komunikatów akceptujemy tylko komunikaty, w których start-line jest postaci request-line. Żądanie klienta zatem powinny rozpoczynać się od status-line postaci request-line takiej, że:
-
+```
 request-line = method SP request-target SP HTTP-version CRLF
-
+```
 gdzie:
 
     method - jest tokenem wskazującym metodę żądaną do wykonania na serwerze przez klienta. Metody akceptowane przez nasz serwer to: GET oraz HEAD. Nazwa metody jest wrażliwa na wielkość znaków. Więcej o obsłudze metod w dalszej części niniejszej treści.
@@ -47,9 +47,9 @@ gdzie:
     CRLF - ciąg dwóch znaków o wartościach ASCII równych 13 i 10.
 
 Odpowiedź serwera powinna mieć także postać HTTP-message, jednak w przypadku komunikatów z serwera start-line powinna przybrać postać status-line takiej, że:
-
+```
 status-line = HTTP-version SP status-code SP reason-phrase CRLF
-
+```
 gdzie:
 
     HTTP-version - w naszym przypadku, ponownie, zawsze będzie to ciąg znaków: HTTP/1.1.
@@ -61,9 +61,9 @@ gdzie:
 Nagłówki żądania i odpowiedzi - header-field
 
 W dalszej części naszego formatu wiadomości, wymienianych pomiędzy naszym serwerem a klientami, następuje sekcja nagłówków. Sekcja składa się z zera lub więcej wystąpień linii postaci:
-
+```
 header-field   = field-name ":" OWS field-value OWS
-
+```
 gdzie:
 
     fields-name - jest nazwą nagłówka, nieczułą na wielkość liter. W dalszej części zostaną wymienione nagłówki obsługiwane przez naszą implementację serwera.
@@ -123,9 +123,9 @@ Nasz serwer powinien obsługiwać minimum dwie następujące metody:
 Skorelowane serwery HTTP
 
 Implementacja serwera powinna przyjmować obowiązkowy parametr wejściowy wskazujący (ścieżką bezwzględną bądź względną) na plik tekstowy o strukturze:
-
+```
 zasób TAB serwer TAB port
-
+```
 gdzie:
 
     zasób - to bezwzględna ścieżka do pliku.
@@ -134,9 +134,9 @@ gdzie:
     port - to numer portu, na którym serwer nasłuchuje na połączenia.
 
 Serwer powinien odszukać plik na podstawie ścieżki bezwzględnej bądź ścieżki względnej w aktualnym katalogu roboczym. Jeśli plik nie zostanie odnaleziony, bądź nie możliwe było jego odczytanie, to serwer powinien zakończyć swoje działanie z kodem błędu EXIT_FAILURE. Implementacja serwera może założyć, że wczytywany plik posiada poprawną strukturę, zgodną z zadaną w niniejszej treści zadania, a plik pusty także jest poprawnym plikiem. Implementacja serwera powinna odczytać zawartość pliku i w przypadku otrzymania od klienta żądania HTTP dotyczącego zasobu, którego serwer nie znalazł w plikach zlokalizowanych lokalnie, powinien przeszukać wczytaną z pliku tablicę i odszukać żądany przez klienta zasób. Jeśli zasób nie występuje także we wczytanej tablicy, to serwer powinien odpowiedzieć statusem o numerze 404 do klienta. Jeśli jednak zasób znajduje się na liście, to serwer powinien wysłać odpowiedź do klienta ze statusem numer 302 oraz ustawionym nagłówkiem Location, którego wartość powinna być tekstem reprezentującym adres HTTP do serwera zawierającego szukany zasób. Jeśli szukany zasób występuje więcej niż raz w tablicy wczytanej z pliku, to serwer powinien skorzystać z pierwszego wpisu występującego najwcześniej w pliku. Konstruowanie nowego adres szukanego zasobu należy wykonać następującego:
-
+```
 PROT serwer COLON port zasób
-
+```
 gdzie:
 
     PROT - to napis http://.
